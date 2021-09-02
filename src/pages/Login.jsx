@@ -1,8 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+/* import PropTypes from 'prop-types';
+import { connect } from 'react-redux'; */
 import Input from '../components/Input';
-import { setUser } from '../actions';
+/* import { setUser } from '../actions'; */
 /* import './login.css'; */
 
 class Login extends React.Component {
@@ -31,10 +31,10 @@ class Login extends React.Component {
   }
 
   handleNameChange({ target }) {
-    const MIN_LENGTH_PSSW = 1;
+    const MIN_LENGTH_NAME = 1;
     this.setState({
       name: target.value,
-      validName: target.value.length >= MIN_LENGTH_PSSW,
+      validName: target.value.length >= MIN_LENGTH_NAME,
     });
   }
 
