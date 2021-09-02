@@ -1,4 +1,5 @@
 import React from 'react';
+// Página de configurações
 
 class Settings extends React.Component {
   render() {
