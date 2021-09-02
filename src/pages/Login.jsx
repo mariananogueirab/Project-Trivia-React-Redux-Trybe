@@ -1,6 +1,6 @@
 import React from 'react';
-/* import PropTypes from 'prop-types';
-import { connect } from 'react-redux'; */
+import PropTypes from 'prop-types';
+/* import { connect } from 'react-redux'; */
 import Input from '../components/Input';
 /* import { setUser } from '../actions'; */
 /* import './login.css'; */
@@ -18,6 +18,20 @@ class Login extends React.Component {
 
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handleNameChange = this.handleNameChange.bind(this);
+    this.settingsClick = this.settingsClick.bind(this);
+  }
+
+  settingsClick() {
+    const { history } = this.props;
+    history.push('/settings');
+  }
+
+  handleNameChange({ target }) {
+    const MIN_LENGTH_NAME = 1;
+    this.setState({
+      name: target.value,
+      validName: target.value.length >= MIN_LENGTH_NAME,
+    });
   }
 
   handleEmailChange({ target }) {
@@ -27,14 +41,6 @@ class Login extends React.Component {
     this.setState({
       validEmail: emailPath.test(email),
       email: target.value,
-    });
-  }
-
-  handleNameChange({ target }) {
-    const MIN_LENGTH_NAME = 1;
-    this.setState({
-      name: target.value,
-      validName: target.value.length >= MIN_LENGTH_NAME,
     });
   }
 
@@ -67,15 +73,22 @@ class Login extends React.Component {
         >
           Jogar
         </button>
+
+        <button
+          type="button"
+          data-testid="btn-settings"
+          onClick={ this.settingsClick }
+        >
+          Settings
+        </button>
       </form>
     );
   }
 }
 
-/* Login.propTypes = {
+Login.propTypes = {
   history: PropTypes.objectOf(PropTypes.string).isRequired,
-  getEmail: PropTypes.func.isRequired,
-}; */
+};
 
 /* const mapDispatchToProps = (dispatch) => ({
   getEmail: (payload) => dispatch(setUser(payload)),
