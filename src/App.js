@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import logo from './trivia.png';
 import './App.css';
 import Login from './pages/Login';
-
+import Settings from './pages/Settings';
 export default class App extends React.Component {
   render() {
     return (
@@ -13,6 +13,7 @@ export default class App extends React.Component {
         </header>
         <Switch>
           <Route exact path="/" component={ Login } />
+          <Route exact path="/settings" component={ Settings } />
         </Switch>
       </div>
     );
