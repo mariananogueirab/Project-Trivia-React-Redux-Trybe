@@ -1,12 +1,12 @@
 import { getToken } from '../services/api';
 
 export const ADD_TOKEN = 'ADD_TOKEN';
-export const GET_GRAVATAR_PICTURE = 'GET_GRAVATAR_PICTURE';
+export const GET_RANKING = 'GET_RANKING';
 export const GET_PLAYER_LOGIN = 'GET_PLAYER_LOGIN';
 export const GET_PLAYER_EMAIL = 'GET_PLAYER_EMAIL';
 
-const getGravatar = (payload) => ({
-  type: GET_GRAVATAR_PICTURE,
+export const getRanking = (payload) => ({
+  type: GET_RANKING,
   payload,
 });
 
