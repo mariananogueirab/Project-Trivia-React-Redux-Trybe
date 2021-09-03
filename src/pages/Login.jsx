@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import logo from '../trivia.png';
 import Input from '../components/Input';
-import { getTokenThunk } from '../actions';
+import { getTokenThunk, getPlayerLogin } from '../actions';
 /* import './login.css'; */
 
 class Login extends React.Component {
@@ -29,9 +29,12 @@ class Login extends React.Component {
   }
 
   playClick() {
-    const { history, getToken } = this.props;
+    const { history, getToken, getLogin } = this.props;
+    const { email, name } = this.state;
     history.push('/game');
     getToken();
+    const login = { name, gravatarEmail: email };
+    getLogin(login);
   }
 
   handleNameChange({ target }) {
@@ -102,10 +105,12 @@ class Login extends React.Component {
 Login.propTypes = {
   history: PropTypes.objectOf(PropTypes.string).isRequired,
   getToken: PropTypes.func.isRequired,
+  getLogin: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
   getToken: () => dispatch(getTokenThunk()),
+  getLogin: (payload) => dispatch(getPlayerLogin(payload)),
 });
 
 export default connect(null, mapDispatchToProps)(Login);

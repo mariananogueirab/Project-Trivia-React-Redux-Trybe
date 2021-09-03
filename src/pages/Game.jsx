@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Questions from '../components/Questions';
 import Timer from '../components/Timer';
+import Header from '../components/Header';
 
 class Game extends Component {
   constructor(props) {
@@ -22,6 +23,7 @@ class Game extends Component {
       <>
         <div>Game</div>
         <Timer />
+        <Header />
         <Questions />
       </>
     );

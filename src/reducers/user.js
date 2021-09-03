@@ -1,18 +1,8 @@
-import { ADD_TOKEN, IS_OVER } from '../actions/index';
+import { ADD_TOKEN, GET_PLAYER_LOGIN, GET_RANKING, IS_OVER } from '../actions/index';
 
 const initialState = {
-  player: {
-    name: '',
-    assertions: '',
-    score: '',
-    gravatarEmail: '',
-  },
-  ranking: [
-    { name: '',
-      score: 0,
-      picture: '',
-    },
-  ],
+  player: {},
+  ranking: [],
   token: '',
   over: false,
 };
@@ -23,6 +13,10 @@ const user = (state = initialState, action) => {
     return { ...state, token: action.payload };
   case IS_OVER:
     return { ...state, over: action.payload };
+  case GET_PLAYER_LOGIN:
+    return { ...state, player: { ...state.player, ...action.payload } };
+  case GET_RANKING:
+    return { ...state, ranking: [action.payload] };
   default:
     return state;
   }
