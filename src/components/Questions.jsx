@@ -8,10 +8,12 @@ class Questions extends React.Component {
       questions: [],
       currentQuestionIndex: 0,
       loading: true,
+      answered: false,
     };
 
     this.getQuestionsFromAPI = this.getQuestionsFromAPI.bind(this);
     this.getSortedButtons = this.getSortedButtons.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -27,7 +29,7 @@ class Questions extends React.Component {
   }
 
   getSortedButtons() {
-    const { questions, currentQuestionIndex } = this.state;
+    const { questions, currentQuestionIndex, answered } = this.state;
     const currentQuestion = questions[currentQuestionIndex];
 
     const buttons = [
@@ -35,11 +37,19 @@ class Questions extends React.Component {
         key={ currentQuestion.correct_answer }
         type="button"
         data-testid="correct-answer"
+        style={ answered ? { border: '3px solid rgb(6, 240, 15)' } : {} }
+        onClick={ this.handleClick }
       >
         {currentQuestion.correct_answer}
       </button>,
       currentQuestion.incorrect_answers.map((answer, i) => (
-        <button key={ answer } type="button" data-testid={ `wrong-answer-${i}` }>
+        <button
+          key={ answer }
+          type="button"
+          data-testid={ `wrong-answer-${i}` }
+          style={ answered ? { border: '3px solid rgb(255, 0, 0)' } : {} }
+          onClick={ this.handleClick }
+        >
           {answer}
         </button>
       )),
@@ -48,6 +58,10 @@ class Questions extends React.Component {
     const fator = 0.5;
     const sortedButtons = buttons.sort(() => Math.random() - fator);
     return sortedButtons;
+  }
+
+  handleClick() {
+    this.setState({ answered: true });
   }
 
   render() {
