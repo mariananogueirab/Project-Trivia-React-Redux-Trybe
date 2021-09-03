@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Questions from '../components/Questions';
+import Timer from '../components/Timer';
 import Header from '../components/Header';
 
 class Game extends Component {
@@ -21,6 +22,7 @@ class Game extends Component {
     return (
       <>
         <div>Game</div>
+        <Timer />
         <Header />
         <Questions />
       </>
