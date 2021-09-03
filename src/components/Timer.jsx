@@ -56,6 +56,7 @@ Timer.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
+  // Over de GameOver
   over: state.user.over,
 });
 
