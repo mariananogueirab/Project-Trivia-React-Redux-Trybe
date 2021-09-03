@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Questions from '../components/Questions';
 
 class Game extends Component {
   constructor(props) {
@@ -17,7 +18,10 @@ class Game extends Component {
   render() {
     this.getTokenToState();
     return (
-      <div>Game</div>
+      <>
+        <div>Game</div>
+        <Questions />
+      </>
     );
   }
 }
