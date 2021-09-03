@@ -1,12 +1,7 @@
-import { ADD_TOKEN } from '../actions/index';
+import { ADD_TOKEN, GET_PLAYER_LOGIN } from '../actions/index';
 
 const initialState = {
-  player: {
-    name: '',
-    assertions: '',
-    score: '',
-    gravatarEmail: '',
-  },
+  player: {},
   ranking: [
     { name: '',
       score: 0,
@@ -20,6 +15,8 @@ const user = (state = initialState, action) => {
   switch (action.type) {
   case ADD_TOKEN:
     return { ...state, token: action.payload };
+  case GET_PLAYER_LOGIN:
+    return { ...state, player: { ...state.player, ...action.payload } };
   default:
     return state;
   }
