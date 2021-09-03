@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { getQuestions } from '../services/api';
 
 class Questions extends React.Component {
@@ -30,12 +32,14 @@ class Questions extends React.Component {
 
   getSortedButtons() {
     const { questions, currentQuestionIndex, answered } = this.state;
+    const { over } = this.props;
     const currentQuestion = questions[currentQuestionIndex];
 
     const buttons = [
       <button
         key={ currentQuestion.correct_answer }
         type="button"
+        disabled={ answered || over }
         data-testid="correct-answer"
         style={ answered ? { border: '3px solid rgb(6, 240, 15)' } : {} }
         onClick={ this.handleClick }
@@ -46,6 +50,7 @@ class Questions extends React.Component {
         <button
           key={ answer }
           type="button"
+          disabled={ answered || over }
           data-testid={ `wrong-answer-${i}` }
           style={ answered ? { border: '3px solid rgb(255, 0, 0)' } : {} }
           onClick={ this.handleClick }
@@ -73,7 +78,6 @@ class Questions extends React.Component {
 
     const { questions, currentQuestionIndex } = this.state;
     const currentQuestion = questions[currentQuestionIndex];
-
     return (
       <div>
         <section>
@@ -90,4 +94,12 @@ class Questions extends React.Component {
   }
 }
 
-export default Questions;
+Questions.propTypes = {
+  over: PropTypes.bool.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  over: state.user.over,
+});
+
+export default connect(mapStateToProps)(Questions);
