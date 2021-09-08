@@ -4,14 +4,13 @@ import PropTypes from 'prop-types';
 import { getQuestions } from '../services/api';
 
 class Questions extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       questions: [],
       currentQuestionIndex: 0,
       loading: true,
       answered: false,
-      counter: 0,
     };
 
     this.getQuestionsFromAPI = this.getQuestionsFromAPI.bind(this);
@@ -70,8 +69,14 @@ class Questions extends React.Component {
   }
 
   nextQuestion() {
-    this.setState((prevstate) => ({ currentQuestionIndex: prevstate.currentQuestionIndex + 1, answered: false }));
-    console.log("clicou");
+    this.setState((prevstate) => (
+      { currentQuestionIndex: prevstate.currentQuestionIndex + 1, answered: false }));
+    const { currentQuestionIndex } = this.state;
+    const INDEX_LAST_QUESTION = 4;
+    if (currentQuestionIndex === INDEX_LAST_QUESTION) {
+      const { history } = this.props;
+      history.push('/feedback');
+    }
   }
 
   handleClick(event) {
@@ -97,8 +102,7 @@ class Questions extends React.Component {
       };
       localStorage.setItem('state', JSON.stringify(newState));
     }
-    this.setState({ answered: true,
-    clicked: true });
+    this.setState({ answered: true });
   }
 
   render() {
@@ -140,6 +144,7 @@ Questions.propTypes = {
   time: PropTypes.number.isRequired,
   score: PropTypes.number.isRequired,
   assertions: PropTypes.number.isRequired,
+  history: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
 const mapStateToProps = (state) => ({

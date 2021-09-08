@@ -27,12 +27,13 @@ class Game extends Component {
 
   render() {
     this.getTokenToState();
+    const { history } = this.props;
     return (
       <>
         <div>Game</div>
         <Timer />
         <Header />
-        <Questions />
+        <Questions history={ history } />
       </>
     );
   }
@@ -40,6 +41,7 @@ class Game extends Component {
 
 Game.propTypes = {
   token: PropTypes.string.isRequired,
+  history: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
 const mapStateToProps = (state) => ({
