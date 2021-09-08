@@ -11,11 +11,13 @@ class Questions extends React.Component {
       currentQuestionIndex: 0,
       loading: true,
       answered: false,
+      clicked: false,
     };
 
     this.getQuestionsFromAPI = this.getQuestionsFromAPI.bind(this);
     this.getSortedButtons = this.getSortedButtons.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.nextQuestion = this.nextQuestion.bind(this);
   }
 
   componentDidMount() {
@@ -28,6 +30,10 @@ class Questions extends React.Component {
 
     const questions = await getQuestions(token);
     this.setState({ questions, loading: false });
+  }
+
+  nextQuestion() {
+    console.log("clicou")
   }
 
   getSortedButtons() {
@@ -90,7 +96,8 @@ class Questions extends React.Component {
       };
       localStorage.setItem('state', JSON.stringify(newState));
     }
-    this.setState({ answered: true });
+    this.setState({ answered: true,
+    clicked: true });
   }
 
   render() {
@@ -100,7 +107,7 @@ class Questions extends React.Component {
       return <span>Loading...</span>;
     }
 
-    const { questions, currentQuestionIndex } = this.state;
+    const { questions, currentQuestionIndex, clicked } = this.state;
     const currentQuestion = questions[currentQuestionIndex];
     return (
       <div>
@@ -108,11 +115,20 @@ class Questions extends React.Component {
           <h2 data-testid="question-category">{currentQuestion.category}</h2>
           <p data-testid="question-text">{currentQuestion.question}</p>
         </section>
-        <section className="answere">
+        <section className="answered">
           {this.getSortedButtons()}
           <br />
-          <button type="button">PRÓXIMA</button>
         </section>
+        { clicked
+        && (
+          <button
+            type="button"
+            data-testid="btn-next"
+            onClick={ this.nextQuestion }
+          >
+            Próxima
+          </button>
+        )}
       </div>
     );
   }
