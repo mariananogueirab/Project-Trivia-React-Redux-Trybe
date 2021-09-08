@@ -1,10 +1,14 @@
-import { ADD_TOKEN, GET_PLAYER_LOGIN, GET_RANKING, IS_OVER } from '../actions/index';
+import { ADD_TOKEN, GET_PLAYER_LOGIN, GET_RANKING, IS_OVER,
+  UPDATE_TIME } from '../actions/index';
 
 const initialState = {
   player: {},
   ranking: [],
   token: '',
   over: false,
+  score: 0,
+  time: 30,
+  assertions: 0,
 };
 
 const user = (state = initialState, action) => {
@@ -17,6 +21,8 @@ const user = (state = initialState, action) => {
     return { ...state, player: { ...state.player, ...action.payload } };
   case GET_RANKING:
     return { ...state, ranking: [action.payload] };
+  case UPDATE_TIME:
+    return { ...state, time: action.payload };
   default:
     return state;
   }

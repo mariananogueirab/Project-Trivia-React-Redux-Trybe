@@ -43,6 +43,7 @@ class Questions extends React.Component {
         data-testid="correct-answer"
         style={ answered ? { border: '3px solid rgb(6, 240, 15)' } : {} }
         onClick={ this.handleClick }
+        name="correct"
       >
         {currentQuestion.correct_answer}
       </button>,
@@ -54,6 +55,7 @@ class Questions extends React.Component {
           data-testid={ `wrong-answer-${i}` }
           style={ answered ? { border: '3px solid rgb(255, 0, 0)' } : {} }
           onClick={ this.handleClick }
+          name="incorrect"
         >
           {answer}
         </button>
@@ -65,7 +67,29 @@ class Questions extends React.Component {
     return sortedButtons;
   }
 
-  handleClick() {
+  handleClick(event) {
+    const { questions, currentQuestionIndex } = this.state;
+    const currentQuestion = questions[currentQuestionIndex];
+    const { difficulty } = currentQuestion;
+    const defaultPoint = 10;
+    const { time, score, assertions } = this.props;
+    const difficultyPoints = {
+      hard: 3,
+      medium: 2,
+      easy: 1,
+    };
+    if (event.target.name === 'correct') {
+      const state = JSON.parse(localStorage.getItem('state'));
+      const newState = {
+        ...state,
+        player: {
+          score: score
+            + defaultPoint + (time * difficultyPoints[difficulty]),
+          assertions: assertions + 1,
+        },
+      };
+      localStorage.setItem('state', JSON.stringify(newState));
+    }
     this.setState({ answered: true });
   }
 
@@ -96,10 +120,17 @@ class Questions extends React.Component {
 
 Questions.propTypes = {
   over: PropTypes.bool.isRequired,
+  time: PropTypes.number.isRequired,
+  score: PropTypes.number.isRequired,
+  assertions: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   over: state.user.over,
+  email: state.user.email,
+  time: state.user.time,
+  score: state.user.score,
+  assertions: state.user.assertions,
 });
 
 export default connect(mapStateToProps)(Questions);

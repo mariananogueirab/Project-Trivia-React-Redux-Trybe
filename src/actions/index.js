@@ -5,6 +5,7 @@ export const IS_OVER = 'IS_OVER';
 export const GET_RANKING = 'GET_RANKING';
 export const GET_PLAYER_LOGIN = 'GET_PLAYER_LOGIN';
 export const GET_PLAYER_EMAIL = 'GET_PLAYER_EMAIL';
+export const UPDATE_TIME = 'UPDATE_TIME';
 
 export const getRanking = (payload) => ({
   type: GET_RANKING,
@@ -29,4 +30,9 @@ export const isOver = () => ({
 export const getPlayerLogin = (payload) => ({
   type: GET_PLAYER_LOGIN,
   payload,
+});
+
+export const updateTime = (time) => ({
+  type: UPDATE_TIME,
+  payload: time,
 });
