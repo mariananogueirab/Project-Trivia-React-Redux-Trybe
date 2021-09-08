@@ -11,7 +11,7 @@ class Questions extends React.Component {
       currentQuestionIndex: 0,
       loading: true,
       answered: false,
-      clicked: false,
+      counter: 0,
     };
 
     this.getQuestionsFromAPI = this.getQuestionsFromAPI.bind(this);
@@ -30,10 +30,6 @@ class Questions extends React.Component {
 
     const questions = await getQuestions(token);
     this.setState({ questions, loading: false });
-  }
-
-  nextQuestion() {
-    console.log("clicou")
   }
 
   getSortedButtons() {
@@ -73,6 +69,11 @@ class Questions extends React.Component {
     return sortedButtons;
   }
 
+  nextQuestion() {
+    this.setState((prevstate) => ({ currentQuestionIndex: prevstate.currentQuestionIndex + 1, answered: false }));
+    console.log("clicou");
+  }
+
   handleClick(event) {
     const { questions, currentQuestionIndex } = this.state;
     const currentQuestion = questions[currentQuestionIndex];
@@ -107,7 +108,7 @@ class Questions extends React.Component {
       return <span>Loading...</span>;
     }
 
-    const { questions, currentQuestionIndex, clicked } = this.state;
+    const { questions, currentQuestionIndex, answered } = this.state;
     const currentQuestion = questions[currentQuestionIndex];
     return (
       <div>
@@ -119,7 +120,7 @@ class Questions extends React.Component {
           {this.getSortedButtons()}
           <br />
         </section>
-        { clicked
+        { answered
         && (
           <button
             type="button"
