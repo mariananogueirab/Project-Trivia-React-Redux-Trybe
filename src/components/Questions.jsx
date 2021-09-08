@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import { getQuestions } from '../services/api';
 
 class Questions extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       questions: [],
       currentQuestionIndex: 0,
@@ -72,9 +72,9 @@ class Questions extends React.Component {
     this.setState((prevstate) => (
       { currentQuestionIndex: prevstate.currentQuestionIndex + 1, answered: false }));
     const { currentQuestionIndex } = this.state;
-    const { history } = this.props;
     const INDEX_LAST_QUESTION = 4;
     if (currentQuestionIndex === INDEX_LAST_QUESTION) {
+      const { history } = this.props;
       history.push('/feedback');
     }
   }
