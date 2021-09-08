@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { isOver } from '../actions/index';
+import { isOver, updateTime } from '../actions/index';
 
 class Timer extends Component {
   constructor() {
@@ -19,8 +19,9 @@ class Timer extends Component {
   }
 
   componentDidUpdate() {
-    const { over } = this.props;
-    if (!over) return this.over();
+    const { over, setTime } = this.props;
+    const { time } = this.state;
+    if (!over) return setTime(time) && this.over();
   }
 
   timer() {
@@ -41,7 +42,7 @@ class Timer extends Component {
   }
 
   render() {
-    const { time } = this.state;
+    const { time } = this.props;
     return (
       <p>
         {time}
@@ -53,14 +54,18 @@ class Timer extends Component {
 Timer.propTypes = {
   timeIsOver: PropTypes.func.isRequired,
   over: PropTypes.bool.isRequired,
+  time: PropTypes.number.isRequired,
+  setTime: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   over: state.user.over,
+  time: state.user.time,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   timeIsOver: () => dispatch(isOver()),
+  setTime: (time) => dispatch(updateTime(time)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Timer);

@@ -14,7 +14,15 @@ class Game extends Component {
 
   getTokenToState() {
     const { token } = this.props;
+    const inState = {
+      player: {
+        score: 0,
+        assertions: 0,
+      },
+      token,
+    };
     localStorage.setItem('token', token);
+    localStorage.setItem('state', JSON.stringify(inState));
   }
 
   render() {
