@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import HeaderFeedback from '../components/HeaderFeedback';
+// Página de feedback
 
 class Feedback extends React.Component {
   constructor(props) {
