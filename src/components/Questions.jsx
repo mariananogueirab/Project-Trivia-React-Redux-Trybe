@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getQuestions } from '../services/api';
+import { getRanking } from '../actions';
 
 class Questions extends React.Component {
   constructor(props) {
@@ -17,6 +18,7 @@ class Questions extends React.Component {
     this.getSortedButtons = this.getSortedButtons.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.nextQuestion = this.nextQuestion.bind(this);
+    this.getRankingLocalStorage = this.getRankingLocalStorage.bind(this);
   }
 
   componentDidMount() {
@@ -68,6 +70,18 @@ class Questions extends React.Component {
     return sortedButtons;
   }
 
+  getRankingLocalStorage() {
+    const state = JSON.parse(localStorage.getItem('state'));
+    const { name, score, picture } = state.player;
+    const rankingPlayer = {
+      name,
+      score,
+      picture,
+    };
+    const { ranking } = this.props;
+    ranking(rankingPlayer);
+  }
+
   nextQuestion() {
     this.setState((prevstate) => (
       { currentQuestionIndex: prevstate.currentQuestionIndex + 1, answered: false }));
@@ -76,6 +90,7 @@ class Questions extends React.Component {
     if (currentQuestionIndex === INDEX_LAST_QUESTION) {
       const { history } = this.props;
       history.push('/feedback');
+      this.getRankingLocalStorage();
     }
   }
 
@@ -95,6 +110,7 @@ class Questions extends React.Component {
       const newState = {
         ...state,
         player: {
+          ...state.player,
           name: state.player.name,
           score: state.player.score
             + defaultPoint + (time * difficultyPoints[difficulty]),
@@ -144,6 +160,11 @@ Questions.propTypes = {
   over: PropTypes.bool.isRequired,
   time: PropTypes.number.isRequired,
   history: PropTypes.objectOf(PropTypes.string).isRequired,
+  ranking: PropTypes.arrayOf(PropTypes.objectOf({
+    name: PropTypes.string.isRequired,
+    score: PropTypes.string.isRequired,
+    picture: PropTypes.string.isRequired,
+  })).isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -154,4 +175,8 @@ const mapStateToProps = (state) => ({
   assertions: state.user.assertions,
 });
 
-export default connect(mapStateToProps)(Questions);
+const mapDispatchToProps = (dispatch) => ({
+  ranking: (payload) => dispatch(getRanking(payload)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Questions);

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Questions from '../components/Questions';
 import Timer from '../components/Timer';
 import Header from '../components/Header';
+import setGravatarImage from '../services/utils';
 
 class Game extends Component {
   constructor(props) {
@@ -12,6 +13,9 @@ class Game extends Component {
     this.getTokenToState = this.getTokenToState.bind(this);
   }
 
+  // componentDidMount() {
+  // }
+
   getTokenToState() {
     const { token, player } = this.props;
     const inState = {
@@ -19,6 +23,7 @@ class Game extends Component {
         ...player,
         score: 0,
         assertions: 0,
+        picture: setGravatarImage(player.email),
       },
       token,
     };
@@ -28,12 +33,13 @@ class Game extends Component {
 
   render() {
     this.getTokenToState();
-    const { history } = this.props;
+    const { history, player: { email } } = this.props;
+    const srcImage = setGravatarImage(email);
     return (
       <>
         <div>Game</div>
         <Timer />
-        <Header />
+        <Header srcImage={ srcImage } />
         <Questions history={ history } />
       </>
     );

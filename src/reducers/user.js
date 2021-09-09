@@ -20,7 +20,7 @@ const user = (state = initialState, action) => {
   case GET_PLAYER_LOGIN:
     return { ...state, player: { ...state.player, ...action.payload } };
   case GET_RANKING:
-    return { ...state, ranking: [action.payload] };
+    return { ...state, ranking: [...state.ranking, action.payload] };
   case UPDATE_TIME:
     return { ...state, time: action.payload };
   default:

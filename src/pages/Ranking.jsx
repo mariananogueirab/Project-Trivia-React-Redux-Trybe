@@ -15,7 +15,7 @@ class Ranking extends Component {
               <li key={ name }>
                 <span data-testid={ `player-name-${index}` }>{name}</span>
                 <img src={ picture } alt={ name } />
-                <span data-testid={ `player-score${index}` }>{score}</span>
+                <span data-testid={ `player-score-${index}` }>{score}</span>
               </li>
             ))}
         </ul>
@@ -29,11 +29,11 @@ const mapStateToProps = (state) => ({
 });
 
 Ranking.propTypes = {
-  ranking: PropTypes.arrayOf(PropTypes.shape({
+  ranking: PropTypes.arrayOf(PropTypes.objectOf({
     name: PropTypes.string.isRequired,
     score: PropTypes.string.isRequired,
     picture: PropTypes.string.isRequired,
-  })),
+  })).isRequired,
 };
 
 export default connect(mapStateToProps)(Ranking);
