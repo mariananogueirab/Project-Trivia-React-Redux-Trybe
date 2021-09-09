@@ -13,9 +13,10 @@ class Game extends Component {
   }
 
   getTokenToState() {
-    const { token } = this.props;
+    const { token, player } = this.props;
     const inState = {
       player: {
+        ...player,
         score: 0,
         assertions: 0,
       },
@@ -41,11 +42,13 @@ class Game extends Component {
 
 Game.propTypes = {
   token: PropTypes.string.isRequired,
+  player: PropTypes.string.isRequired,
   history: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
 const mapStateToProps = (state) => ({
   token: state.user.token,
+  player: state.user.player,
 });
 
 export default connect(mapStateToProps)(Game);

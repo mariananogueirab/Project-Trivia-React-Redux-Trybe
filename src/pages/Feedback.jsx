@@ -1,4 +1,5 @@
 import React from 'react';
+import HeaderFeedback from '../components/HeaderFeedback';
 
 class Feedback extends React.Component {
   render() {
@@ -6,6 +7,7 @@ class Feedback extends React.Component {
     const minAssertions = 3;
     return (
       <div>
+        <HeaderFeedback />
         <h1 data-testid="feedback-text">
           { assertions < minAssertions ? 'Podia ser melhor...' : 'Mandou bem!'}
         </h1>

@@ -27,7 +27,7 @@ class Header extends React.Component {
 
   render() {
     const { name, email, getRankingObj } = this.props;
-    const gravatar = md5(email.toLowerCase().trim()).toString();
+    const gravatar = email ? md5(email.toLowerCase().trim()).toString() : '';
     const srcImage = `https://www.gravatar.com/avatar/${gravatar}`;
     const { score } = this.state;
     const ranking = { name, score, picture: srcImage };

@@ -95,6 +95,7 @@ class Questions extends React.Component {
       const newState = {
         ...state,
         player: {
+          name: state.player.name,
           score: state.player.score
             + defaultPoint + (time * difficultyPoints[difficulty]),
           assertions: state.player.assertions + 1,
