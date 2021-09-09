@@ -84,7 +84,7 @@ class Questions extends React.Component {
     const currentQuestion = questions[currentQuestionIndex];
     const { difficulty } = currentQuestion;
     const defaultPoint = 10;
-    const { time, score, assertions } = this.props;
+    const { time } = this.props;
     const difficultyPoints = {
       hard: 3,
       medium: 2,
@@ -96,9 +96,9 @@ class Questions extends React.Component {
         ...state,
         player: {
           name: state.player.name,
-          score: score
+          score: state.player.score
             + defaultPoint + (time * difficultyPoints[difficulty]),
-          assertions: assertions + 1,
+          assertions: state.player.assertions + 1,
         },
       };
       localStorage.setItem('state', JSON.stringify(newState));
@@ -143,8 +143,6 @@ class Questions extends React.Component {
 Questions.propTypes = {
   over: PropTypes.bool.isRequired,
   time: PropTypes.number.isRequired,
-  score: PropTypes.number.isRequired,
-  assertions: PropTypes.number.isRequired,
   history: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
