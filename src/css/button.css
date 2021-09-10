@@ -1,13 +1,12 @@
 button {
-  margin: 5px;
-  width:fit-content;
-  padding: 10px;
+  background-color: #50cb93;
+  border-color: #50cb93;
   border-radius: 5px;
-  border-color: #50CB93;
-  background-color: #50CB93;
   color: white;
   font-size: 20px;
-
+  margin: 5px;
+  padding: 10px;
+  width:fit-content;
 }
 
 button:enabled {
