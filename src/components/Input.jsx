@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './input.css';
 
 class Input extends React.Component {
   render() {
@@ -15,7 +16,6 @@ class Input extends React.Component {
             data-testid={ testid }
             onChange={ onChange }
             required
-            className="input"
             id={ name }
           />
         </label>

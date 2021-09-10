@@ -1,0 +1,50 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: #50CB93;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding-left: 10px;
+}
+
+h1 {
+  align-items: center;
+  background-color: #50CB93;
+  color: white;
+  font-size: 50px;
+  padding: 10px;
+}
+
+.container {
+  display: flex;
+  font-size: 25px;
+  justify-content: center;
+  padding: 10px;
+}
+
+.timer {
+  display: flex;
+  font-size: 30px;
+  margin-right: 50px;
+}
+
+.questions-card {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  justify-content: center;
+}
+
+h2 {
+  padding: 20px;
+  font-size: 30px;
+}
+
+p {
+  padding: 20px;
+  font-size: 25px;
+}

@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import logo from '../trivia.png';
 import Input from '../components/Input';
 import { getTokenThunk, getPlayerLogin } from '../actions';
-/* import './login.css'; */
+import Button from '../components/Button';
+import './login.css';
 
 class Login extends React.Component {
   constructor(props) {
@@ -59,8 +60,8 @@ class Login extends React.Component {
     const { email, name, validEmail, validName } = this.state;
     return (
       <section>
-        <header className="App-header">
-          <img src={ logo } className="App-logo" alt="logo" />
+        <header className="login-header">
+          <img src={ logo } className="login-logo" alt="logo" />
         </header>
         <form className="form">
           <Input
@@ -80,22 +81,18 @@ class Login extends React.Component {
             testid="input-gravatar-email"
           />
 
-          <button
-            type="button"
+          <Button
             onClick={ this.playClick }
             disabled={ !validEmail || !validName }
-            data-testid="btn-play"
-          >
-            Jogar
-          </button>
+            id="btn-play"
+            label="Jogar"
+          />
 
-          <button
-            type="button"
-            data-testid="btn-settings"
+          <Button
             onClick={ this.settingsClick }
-          >
-            Settings
-          </button>
+            id="btn-settings"
+            label="Settings"
+          />
         </form>
       </section>
     );

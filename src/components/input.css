@@ -1,0 +1,11 @@
+input {
+  border-color: #50CB93;
+  border-radius: 5px;
+  height: 25px;
+  margin: 8px;
+  padding: 2px;
+}
+
+label {
+  font-size: 25px;
+}

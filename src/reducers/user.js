@@ -1,5 +1,5 @@
 import { ADD_TOKEN, GET_PLAYER_LOGIN, GET_RANKING, IS_OVER,
-  UPDATE_TIME } from '../actions/index';
+  UPDATE_TIME, GRAVATAR_IMAGE, QUESTIONS_ANSWERED } from '../actions/index';
 
 const initialState = {
   player: {},
@@ -9,6 +9,8 @@ const initialState = {
   score: 0,
   time: 30,
   assertions: 0,
+  picture: '',
+  finishedQuestions: false,
 };
 
 const user = (state = initialState, action) => {
@@ -23,6 +25,10 @@ const user = (state = initialState, action) => {
     return { ...state, ranking: [...state.ranking, action.payload] };
   case UPDATE_TIME:
     return { ...state, time: action.payload };
+  case GRAVATAR_IMAGE:
+    return { ...state, picture: action.payload };
+  case QUESTIONS_ANSWERED:
+    return { ...state, finishedQuestions: action.payload };
   default:
     return state;
   }

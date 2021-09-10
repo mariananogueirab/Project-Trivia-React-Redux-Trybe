@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Timer from './Timer';
+import '../pages/game.css';
 
 class Header extends React.Component {
   constructor(props) {
@@ -23,13 +25,25 @@ class Header extends React.Component {
   }
 
   render() {
-    const { name, srcImage } = this.props;
+    const { name, gravatarImage, endGame } = this.props;
     const { score } = this.state;
     return (
       <header>
-        <img src={ srcImage } alt="gravatar" data-testid="header-profile-picture" />
-        <p data-testid="header-player-name">{`Jogador: ${name}`}</p>
-        <p data-testid="header-score">{`Ponto: ${score}`}</p>
+        <div className="container">
+          <img
+            src={ gravatarImage }
+            alt="gravatar"
+            data-testid="header-profile-picture"
+          />
+        </div>
+        <div
+          data-testid="header-player-name"
+          className="container"
+        >
+          {`Jogador: ${name}`}
+        </div>
+        <div data-testid="header-score" className="container">{`Pontos: ${score}`}</div>
+        {endGame || <Timer />}
       </header>
     );
   }
@@ -38,10 +52,13 @@ class Header extends React.Component {
 const mapStateToProps = (state) => ({
   email: state.user.player.gravatarEmail,
   name: state.user.player.name,
+  gravatarImage: state.user.picture,
+  endGame: state.user.finishedQuestions,
 });
 
-export default connect(mapStateToProps)(Header);
-
 Header.propTypes = {
-  name: PropTypes.string,
-}.isRequired;
+  name: PropTypes.string.isRequired,
+  gravatarImage: PropTypes.string.isRequired,
+};
+
+export default connect(mapStateToProps)(Header);

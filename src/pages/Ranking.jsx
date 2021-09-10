@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
-// import { Link } from 'react-router-dom';
+import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Button from '../components/Button';
+import './ranking.css';
 
-class Ranking extends Component {
+class Ranking extends React.Component {
   constructor(props) {
     super(props);
 
@@ -23,20 +24,21 @@ class Ranking extends Component {
         <ul>
           {ranking.sort((a, b) => b.score - a.score)
             .map(({ name, score, picture }, index) => (
-              <li key={ name }>
-                <span data-testid={ `player-name-${index}` }>{name}</span>
-                <img src={ picture } alt={ name } />
-                <span data-testid={ `player-score-${index}` }>{score}</span>
+              <li key={ name } className="container">
+                <div>
+                  <img src={ picture } alt={ name } />
+                </div>
+                <div data-testid={ `player-name-${index}` }>{name}</div>
+                <div data-testid={ `player-score-${index}` }>{score}</div>
               </li>
             ))}
         </ul>
-        <button
+        <Button
           data-testid="btn-go-home"
-          type="button"
           onClick={ this.handleClick }
-        >
-          Jogar Novamente
-        </button>
+          label="Jogar Novamente"
+        />
+
       </div>
     );
   }

@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getQuestions } from '../services/api';
-import { getRanking } from '../actions';
+import { getRanking, getFinishedQuestions } from '../actions';
+import Button from './Button';
 
 class Questions extends React.Component {
   constructor(props) {
@@ -39,29 +40,25 @@ class Questions extends React.Component {
     const currentQuestion = questions[currentQuestionIndex];
 
     const buttons = [
-      <button
+      <Button
         key={ currentQuestion.correct_answer }
-        type="button"
         disabled={ answered || over }
-        data-testid="correct-answer"
+        id="correct-answer"
         style={ answered ? { border: '3px solid rgb(6, 240, 15)' } : {} }
         onClick={ this.handleClick }
         name="correct"
-      >
-        {currentQuestion.correct_answer}
-      </button>,
+        label={ currentQuestion.correct_answer }
+      />,
       currentQuestion.incorrect_answers.map((answer, i) => (
-        <button
+        <Button
           key={ answer }
-          type="button"
           disabled={ answered || over }
-          data-testid={ `wrong-answer-${i}` }
+          id={ `wrong-answer-${i}` }
           style={ answered ? { border: '3px solid rgb(255, 0, 0)' } : {} }
           onClick={ this.handleClick }
           name="incorrect"
-        >
-          {answer}
-        </button>
+          label={ answer }
+        />
       )),
     ];
 
@@ -86,11 +83,13 @@ class Questions extends React.Component {
     this.setState((prevstate) => (
       { currentQuestionIndex: prevstate.currentQuestionIndex + 1, answered: false }));
     const { currentQuestionIndex } = this.state;
+    const { finishedGame } = this.props;
     const INDEX_LAST_QUESTION = 4;
     if (currentQuestionIndex === INDEX_LAST_QUESTION) {
       const { history } = this.props;
       history.push('/feedback');
       this.getRankingLocalStorage();
+      finishedGame();
     }
   }
 
@@ -131,8 +130,9 @@ class Questions extends React.Component {
 
     const { questions, currentQuestionIndex, answered } = this.state;
     const currentQuestion = questions[currentQuestionIndex];
+    const { over } = this.props;
     return (
-      <div>
+      <div className="questions-card">
         <section>
           <h2 data-testid="question-category">{currentQuestion.category}</h2>
           <p data-testid="question-text">{currentQuestion.question}</p>
@@ -141,15 +141,13 @@ class Questions extends React.Component {
           {this.getSortedButtons()}
           <br />
         </section>
-        { answered
+        { (answered || over)
         && (
-          <button
-            type="button"
-            data-testid="btn-next"
+          <Button
+            id="btn-next"
             onClick={ this.nextQuestion }
-          >
-            Próxima
-          </button>
+            label="Próxima"
+          />
         )}
       </div>
     );
@@ -165,6 +163,7 @@ Questions.propTypes = {
     score: PropTypes.string.isRequired,
     picture: PropTypes.string.isRequired,
   })).isRequired,
+  finishedGame: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -177,6 +176,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   ranking: (payload) => dispatch(getRanking(payload)),
+  finishedGame: () => dispatch(getFinishedQuestions()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Questions);
