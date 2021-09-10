@@ -5,28 +5,8 @@ import Timer from './Timer';
 import '../css/game.css';
 
 class Header extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      score: 0,
-    };
-    this.setPlayerState = this.setPlayerState.bind(this);
-  }
-
-  componentDidMount() {
-    this.setPlayerState();
-  }
-
-  setPlayerState() {
-    const state = JSON.parse(localStorage.getItem('state'));
-    this.setState({
-      score: state.player.score,
-    });
-  }
-
   render() {
-    const { name, gravatarImage } = this.props;
-    const { score } = this.state;
+    const { name, gravatarImage, score } = this.props;
     return (
       <header>
         <div className="container">
@@ -53,11 +33,13 @@ const mapStateToProps = (state) => ({
   email: state.user.player.gravatarEmail,
   name: state.user.player.name,
   gravatarImage: state.user.picture,
+  score: state.user.score,
 });
 
 Header.propTypes = {
   name: PropTypes.string.isRequired,
   gravatarImage: PropTypes.string.isRequired,
+  score: PropTypes.number.isRequired,
 };
 
 export default connect(mapStateToProps)(Header);

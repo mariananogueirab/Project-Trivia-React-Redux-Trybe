@@ -27,6 +27,7 @@ h1 {
 }
 
 .timer {
+  align-items: center;
   display: flex;
   font-size: 30px;
   margin-right: 50px;

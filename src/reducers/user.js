@@ -1,5 +1,5 @@
 import { ADD_TOKEN, GET_PLAYER_LOGIN, GET_RANKING, IS_OVER,
-  UPDATE_TIME, GRAVATAR_IMAGE } from '../actions/index';
+  UPDATE_TIME, GRAVATAR_IMAGE, UPDATE_SCORE } from '../actions/index';
 
 const initialState = {
   player: {},
@@ -26,6 +26,8 @@ const user = (state = initialState, action) => {
     return { ...state, time: action.payload };
   case GRAVATAR_IMAGE:
     return { ...state, picture: action.payload };
+  case UPDATE_SCORE:
+    return { ...state, score: action.payload };
   default:
     return state;
   }

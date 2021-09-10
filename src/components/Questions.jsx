@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getQuestions } from '../services/api';
-import { getRanking } from '../actions';
+import { getRanking, updateScore } from '../actions';
 import Button from './Button';
 import '../css/game.css';
 
@@ -105,13 +105,16 @@ class Questions extends React.Component {
     };
     if (event.target.name === 'correct') {
       const state = JSON.parse(localStorage.getItem('state'));
+      const newScore = state.player.score
+      + defaultPoint + (time * difficultyPoints[difficulty]);
+      const { getScore } = this.props;
+      getScore(newScore);
       const newState = {
         ...state,
         player: {
           ...state.player,
           name: state.player.name,
-          score: state.player.score
-            + defaultPoint + (time * difficultyPoints[difficulty]),
+          score: newScore,
           assertions: state.player.assertions + 1,
         },
       };
@@ -162,6 +165,7 @@ Questions.propTypes = {
     score: PropTypes.string.isRequired,
     picture: PropTypes.string.isRequired,
   })).isRequired,
+  getScore: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -174,6 +178,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   ranking: (payload) => dispatch(getRanking(payload)),
+  getScore: (payload) => dispatch(updateScore(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Questions);

@@ -7,6 +7,7 @@ export const GET_PLAYER_LOGIN = 'GET_PLAYER_LOGIN';
 export const GET_PLAYER_EMAIL = 'GET_PLAYER_EMAIL';
 export const UPDATE_TIME = 'UPDATE_TIME';
 export const GRAVATAR_IMAGE = 'GRAVATAR_IMAGE';
+export const UPDATE_SCORE = 'UPDATE_SCORE';
 
 export const getRanking = (payload) => ({
   type: GET_RANKING,
@@ -40,5 +41,10 @@ export const updateTime = (time) => ({
 
 export const getGravatarImage = (payload) => ({
   type: GRAVATAR_IMAGE,
+  payload,
+});
+
+export const updateScore = (payload) => ({
+  type: UPDATE_SCORE,
   payload,
 });
