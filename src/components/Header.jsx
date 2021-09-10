@@ -1,35 +1,29 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Timer from './Timer';
+import '../css/game.css';
 
 class Header extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      score: 0,
-    };
-    this.setPlayerState = this.setPlayerState.bind(this);
-  }
-
-  componentDidMount() {
-    this.setPlayerState();
-  }
-
-  setPlayerState() {
-    const state = JSON.parse(localStorage.getItem('state'));
-    this.setState({
-      score: state.player.score,
-    });
-  }
-
   render() {
-    const { name, srcImage } = this.props;
-    const { score } = this.state;
+    const { name, gravatarImage, score } = this.props;
     return (
       <header>
-        <img src={ srcImage } alt="gravatar" data-testid="header-profile-picture" />
-        <p data-testid="header-player-name">{`Jogador: ${name}`}</p>
-        <p data-testid="header-score">{`Ponto: ${score}`}</p>
+        <div className="container">
+          <img
+            src={ gravatarImage }
+            alt="gravatar"
+            data-testid="header-profile-picture"
+          />
+        </div>
+        <div
+          data-testid="header-player-name"
+          className="container"
+        >
+          {`Jogador: ${name}`}
+        </div>
+        <div data-testid="header-score" className="container">{`Pontos: ${score}`}</div>
+        <Timer />
       </header>
     );
   }
@@ -38,10 +32,14 @@ class Header extends React.Component {
 const mapStateToProps = (state) => ({
   email: state.user.player.gravatarEmail,
   name: state.user.player.name,
+  gravatarImage: state.user.picture,
+  score: state.user.score,
 });
 
-export default connect(mapStateToProps)(Header);
-
 Header.propTypes = {
-  name: PropTypes.string,
-}.isRequired;
+  name: PropTypes.string.isRequired,
+  gravatarImage: PropTypes.string.isRequired,
+  score: PropTypes.number.isRequired,
+};
+
+export default connect(mapStateToProps)(Header);

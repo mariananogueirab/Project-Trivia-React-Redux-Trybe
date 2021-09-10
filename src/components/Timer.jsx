@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { isOver, updateTime } from '../actions/index';
+import '../css/game.css';
 
 class Timer extends Component {
   constructor() {
@@ -44,9 +45,9 @@ class Timer extends Component {
   render() {
     const { time } = this.props;
     return (
-      <p>
-        {time}
-      </p>
+      <div className="timer">
+        {`Tempo ${time}`}
+      </div>
     );
   }
 }
