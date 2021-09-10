@@ -13,9 +13,6 @@ class Game extends Component {
     this.getTokenToState = this.getTokenToState.bind(this);
   }
 
-  // componentDidMount() {
-  // }
-
   getTokenToState() {
     const { token, player } = this.props;
     const inState = {

@@ -4,6 +4,17 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 class Ranking extends Component {
+  constructor(props) {
+    super(props);
+
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    const { history } = this.props;
+    history.push('/');
+  }
+
   render() {
     const { ranking } = this.props;
     return (
@@ -19,6 +30,13 @@ class Ranking extends Component {
               </li>
             ))}
         </ul>
+        <button
+          data-testid="btn-go-home"
+          type="button"
+          onClick={ this.handleClick }
+        >
+          Jogar Novamente
+        </button>
       </div>
     );
   }
@@ -34,6 +52,7 @@ Ranking.propTypes = {
     score: PropTypes.string.isRequired,
     picture: PropTypes.string.isRequired,
   })).isRequired,
+  history: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
 export default connect(mapStateToProps)(Ranking);
