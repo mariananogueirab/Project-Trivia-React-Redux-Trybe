@@ -5,7 +5,7 @@ import logo from '../trivia.png';
 import Input from '../components/Input';
 import { getTokenThunk, getPlayerLogin } from '../actions';
 import Button from '../components/Button';
-import './login.css';
+import '../css/login.css';
 
 class Login extends React.Component {
   constructor(props) {

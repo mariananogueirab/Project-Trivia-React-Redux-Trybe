@@ -2,8 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getQuestions } from '../services/api';
-import { getRanking, getFinishedQuestions } from '../actions';
+import { getRanking } from '../actions';
 import Button from './Button';
+import '../css/game.css';
 
 class Questions extends React.Component {
   constructor(props) {
@@ -83,13 +84,11 @@ class Questions extends React.Component {
     this.setState((prevstate) => (
       { currentQuestionIndex: prevstate.currentQuestionIndex + 1, answered: false }));
     const { currentQuestionIndex } = this.state;
-    const { finishedGame } = this.props;
     const INDEX_LAST_QUESTION = 4;
     if (currentQuestionIndex === INDEX_LAST_QUESTION) {
       const { history } = this.props;
       history.push('/feedback');
       this.getRankingLocalStorage();
-      finishedGame();
     }
   }
 
@@ -163,7 +162,6 @@ Questions.propTypes = {
     score: PropTypes.string.isRequired,
     picture: PropTypes.string.isRequired,
   })).isRequired,
-  finishedGame: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -176,7 +174,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   ranking: (payload) => dispatch(getRanking(payload)),
-  finishedGame: () => dispatch(getFinishedQuestions()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Questions);

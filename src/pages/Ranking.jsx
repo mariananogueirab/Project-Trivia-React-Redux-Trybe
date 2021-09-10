@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Button from '../components/Button';
-import './ranking.css';
+import '../css/ranking.css';
 
 class Ranking extends React.Component {
   constructor(props) {
@@ -34,7 +34,7 @@ class Ranking extends React.Component {
             ))}
         </ul>
         <Button
-          data-testid="btn-go-home"
+          id="btn-go-home"
           onClick={ this.handleClick }
           label="Jogar Novamente"
         />

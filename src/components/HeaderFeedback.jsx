@@ -1,5 +1,7 @@
 import React from 'react';
-import md5 from 'crypto-js/md5';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import '../css/game.css';
 
 class HeaderFeedback extends React.Component {
   constructor(props) {
@@ -16,7 +18,6 @@ class HeaderFeedback extends React.Component {
 
   setPlayerState() {
     const state = JSON.parse(localStorage.getItem('state'));
-    console.log(state);
     if (state) {
       this.setState({
         player: state.player,
@@ -25,15 +26,16 @@ class HeaderFeedback extends React.Component {
   }
 
   render() {
-    const { player: { name, gravatarEmail, score } } = this.state;
-    const gravatar = gravatarEmail
-      ? md5(gravatarEmail.toLowerCase().trim()).toString()
-      : '';
-    const srcImage = `https://www.gravatar.com/avatar/${gravatar}`;
+    const { player: { name, score } } = this.state;
+    const { gravatarPicture } = this.props;
 
     return (
       <header>
-        <img src={ srcImage } alt="gravatar" data-testid="header-profile-picture" />
+        <img
+          src={ gravatarPicture }
+          alt="gravatar"
+          data-testid="header-profile-picture"
+        />
         <p data-testid="header-player-name">{`Jogador: ${name}`}</p>
         <p>Ponto: </p>
         <p data-testid="header-score">{score}</p>
@@ -42,4 +44,12 @@ class HeaderFeedback extends React.Component {
   }
 }
 
-export default HeaderFeedback;
+const mapStateToProps = (state) => ({
+  gravatarPicture: state.user.picture,
+});
+
+HeaderFeedback.propTypes = {
+  gravatarPicture: PropTypes.string.isRequired,
+};
+
+export default connect(mapStateToProps)(HeaderFeedback);

@@ -5,6 +5,7 @@ import Questions from '../components/Questions';
 import Header from '../components/Header';
 import setGravatarImage from '../services/utils';
 import { getGravatarImage } from '../actions';
+import '../css/game.css';
 
 class Game extends Component {
   constructor(props) {

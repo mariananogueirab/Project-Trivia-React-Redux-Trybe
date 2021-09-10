@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Header from '../components/Header';
 import Button from '../components/Button';
+import HeaderFeedback from '../components/HeaderFeedback';
+import '../css/game.css';
 
 class Feedback extends React.Component {
   constructor(props) {
@@ -26,7 +27,7 @@ class Feedback extends React.Component {
     const minAssertions = 3;
     return (
       <div>
-        <Header />
+        <HeaderFeedback />
         <h1 data-testid="feedback-text">
           { assertions < minAssertions ? 'Podia ser melhor...' : 'Mandou bem!'}
         </h1>
@@ -40,13 +41,13 @@ class Feedback extends React.Component {
         </p>
 
         <Button
-          data-testid="btn-play-again"
+          id="btn-play-again"
           onClick={ this.playAgain }
           label="Jogar Novamente"
         />
 
         <Button
-          data-testid="btn-ranking"
+          id="btn-ranking"
           onClick={ this.goRanking }
           label="Ver Ranking"
         />
